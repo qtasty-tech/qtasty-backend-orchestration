@@ -10,3 +10,6 @@
 [submodule "delivery-service"]
 	path = delivery-service
 	url = https://github.com/qtasty-tech/delivery-service.git
+[submodule "admin-service"]
+	path = admin-service
+	url = https://github.com/qtasty-tech/admin-service.git
