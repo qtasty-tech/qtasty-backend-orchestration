@@ -5,8 +5,6 @@ services:
     build: ./user-service
     ports:
       - "5000:5000"
-    depends_on:
-      - mongo
     networks:
       - qtasty-network
 
@@ -31,28 +29,19 @@ services:
     networks:
       - qtasty-network
 
-  admin-service:
-    build: ./admin-service
-    ports:
-      - "8000:8000"
-    networks:
-      - qtasty-network
-    
+  # admin-service:
+  #   build: ./admin-service
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - qtasty-network
 
-  auth-service:
-    build: ./auth-service
-    ports:
-      - "9000:9000"
-    networks:
-      - qtasty-network
-    
-
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    networks:
-      - qtasty-network
+  # auth-service:
+  #   build: ./auth-service
+  #   ports:
+  #     - "9000:9000"
+  #   networks:
+  #     - qtasty-network
 
 networks:
   qtasty-network:
