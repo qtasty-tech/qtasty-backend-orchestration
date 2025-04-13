@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    networks:
+      - qtasty-network
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "7000:7000"
+    networks:
+      - qtasty-network
+
+  restaurant-service:
+    build: ./restaurant-service
+    ports:
+      - "3000:3000"
+    networks:
+      - qtasty-network
+
+  delivery-service:
+    build: ./delivery-service
+    ports:
+      - "6000:6000"
+    networks:
+      - qtasty-network
+
+  admin-service:
+    build: ./admin-service
+    ports:
+      - "8000:8000"
+    networks:
+      - qtasty-network
+    
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "9000:9000"
+    networks:
+      - qtasty-network
+    
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - qtasty-network
+
+networks:
+  qtasty-network:
+    driver: bridge
