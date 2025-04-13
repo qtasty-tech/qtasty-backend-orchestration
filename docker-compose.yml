@@ -8,8 +8,8 @@ services:
     networks:
       - qtasty-network
     environment:
-      - JWT_SECRET=${JWT_SECRET}
-      - MONGO_URL=${MONGO_URL}
+      - JWT_SECRET=thisal
+      - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/user_service?retryWrites=true&w=majority&appName=Cluster0
 
   order-service:
     build: ./order-service
@@ -18,8 +18,8 @@ services:
     networks:
       - qtasty-network
     environment:
-      - JWT_SECRET=${JWT_SECRET}
-      - MONGO_URL=${MONGO_URL}
+      - JWT_SECRET=thisal
+      - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/order_service?retryWrites=true&w=majority&appName=Cluster0
 
   restaurant-service:
     build: ./restaurant-service
@@ -28,8 +28,8 @@ services:
     networks:
       - qtasty-network
     environment:
-      - JWT_SECRET=${JWT_SECRET}
-      - MONGO_URL=${MONGO_URL}
+      - JWT_SECRET=thisal
+      - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/resturant_service?retryWrites=true&w=majority&appName=Cluster0
 
   delivery-service:
     build: ./delivery-service
@@ -38,8 +38,8 @@ services:
     networks:
       - qtasty-network
     environment:
-      - JWT_SECRET=${JWT_SECRET}
-      - MONGO_URL=${MONGO_URL}
+      - JWT_SECRET=thisal
+      - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/delivery_service?retryWrites=true&w=majority&appName=Cluster0
 
   kafka:
     image: wurstmeister/kafka:latest
