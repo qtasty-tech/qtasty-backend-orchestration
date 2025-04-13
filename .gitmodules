@@ -7,3 +7,6 @@
 [submodule "restaurant-service"]
 	path = restaurant-service
 	url = https://github.com/qtasty-tech/restaurant-service.git
+[submodule "delivery-service"]
+	path = delivery-service
+	url = https://github.com/qtasty-tech/delivery-service.git
