@@ -10,7 +10,9 @@ services:
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/user_service?retryWrites=true&w=majority&appName=Cluster0
-
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SESSION_SECRET=QTasty
   order-service:
     build: ./order-service
     ports:
