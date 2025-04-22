@@ -4,7 +4,7 @@ services:
   user-service:
     build: ./user-service
     ports:
-      - "5000:5000"
+      - "5001:5000"
     networks:
       - qtasty-network
     environment:
@@ -59,7 +59,7 @@ services:
     environment:
       - ZOOKEEPER_CLIENT_PORT=2181
     ports:
-      - "2181:2181"
+      - "32181:2181"
     networks:
       - qtasty-network
 
