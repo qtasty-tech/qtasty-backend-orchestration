@@ -4,15 +4,13 @@ services:
   user-service:
     build: ./user-service
     ports:
-      - "5001:5000"
+      - "5000:5000"
     networks:
       - qtasty-network
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/user_service?retryWrites=true&w=majority&appName=Cluster0
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-      - SESSION_SECRET=QTasty
+
   order-service:
     build: ./order-service
     ports:
@@ -61,7 +59,7 @@ services:
     environment:
       - ZOOKEEPER_CLIENT_PORT=2181
     ports:
-      - "32181:2181"
+      - "2181:2181"
     networks:
       - qtasty-network
 
