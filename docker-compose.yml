@@ -63,19 +63,19 @@ services:
     networks:
       - qtasty-network
 
-  # admin-service:
-  #   build: ./admin-service
-  #   ports:
-  #     - "8000:8000"
-  #   networks:
-  #     - qtasty-network
+  admin-service:
+    build: ./admin-service
+    ports:
+      - "8000:8000"
+    networks:
+      - qtasty-network
 
-  # auth-service:
-  #   build: ./auth-service
-  #   ports:
-  #     - "9000:9000"
-  #   networks:
-  #     - qtasty-network
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "9000:9000"
+    networks:
+      - qtasty-network
 
 networks:
   qtasty-network:
