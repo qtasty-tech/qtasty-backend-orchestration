@@ -77,6 +77,13 @@ services:
     networks:
       - qtasty-network
 
+  admin-notification-service:
+    build: ./admin-notification-service
+    ports:
+      - "9001:9001"
+    networks:
+      - qtasty-network
+
 networks:
   qtasty-network:
     driver: bridge
