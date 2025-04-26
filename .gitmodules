@@ -19,3 +19,10 @@
 [submodule "admin-notification-service"]
 	path = admin-notification-service
 	url = https://github.com/qtasty-tech/admin-notification-service.git
+[submodule "payment-service"]
+	path = payment-service
+	url = https://github.com/qtasty-tech/payment-service.git
+[submodule "notification-service"]
+	path = notification-service
+	url = https://github.com/qtasty-tech/notification-service.git
+
