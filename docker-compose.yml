@@ -66,21 +66,21 @@ services:
   admin-service:
     build: ./admin-service
     ports:
-      - "8000:8000"
+      - "8084:8084"
     networks:
       - qtasty-network
 
   auth-service:
     build: ./auth-service
     ports:
-      - "9000:9000"
+      - "8080:8080"
     networks:
       - qtasty-network
 
   admin-notification-service:
     build: ./admin-notification-service
     ports:
-      - "9001:9001"
+      - "8085:8085"
     networks:
       - qtasty-network
 
