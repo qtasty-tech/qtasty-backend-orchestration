@@ -26,3 +26,6 @@
 	path = notification-service
 	url = https://github.com/qtasty-tech/notification-service.git
 
+[submodule "transaction-service"]
+	path = transaction-service
+	url = https://github.com/qtasty-tech/transaction-service.git
