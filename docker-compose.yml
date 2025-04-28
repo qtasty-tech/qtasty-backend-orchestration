@@ -84,6 +84,13 @@ services:
     networks:
       - qtasty-network
 
+  transaction-service:
+    build: ./transaction-service
+    ports:
+      - "8086:8086"
+    networks:
+      - qtasty-network
+
 networks:
   qtasty-network:
     driver: bridge
