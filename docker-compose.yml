@@ -24,7 +24,7 @@ services:
   restaurant-service:
     build: ./restaurant-service
     ports:
-      - "3000:3000"
+      - "5001:5001"
     networks:
       - qtasty-network
     environment:
@@ -63,33 +63,33 @@ services:
     networks:
       - qtasty-network
 
-  admin-service:
-    build: ./admin-service
-    ports:
-      - "8084:8084"
-    networks:
-      - qtasty-network
+  # admin-service:
+  #   build: ./admin-service
+  #   ports:
+  #     - "8084:8084"
+  #   networks:
+  #     - qtasty-network
 
-  auth-service:
-    build: ./auth-service
-    ports:
-      - "8080:8080"
-    networks:
-      - qtasty-network
+  # auth-service:
+  #   build: ./auth-service
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - qtasty-network
 
-  admin-notification-service:
-    build: ./admin-notification-service
-    ports:
-      - "8085:8085"
-    networks:
-      - qtasty-network
+  # admin-notification-service:
+  #   build: ./admin-notification-service
+  #   ports:
+  #     - "8085:8085"
+  #   networks:
+  #     - qtasty-network
 
-  transaction-service:
-    build: ./transaction-service
-    ports:
-      - "8086:8086"
-    networks:
-      - qtasty-network
+  # transaction-service:
+  #   build: ./transaction-service
+  #   ports:
+  #     - "8086:8086"
+  #   networks:
+  #     - qtasty-network
 
 networks:
   qtasty-network:
