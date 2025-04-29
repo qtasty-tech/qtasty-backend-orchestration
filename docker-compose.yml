@@ -10,6 +10,9 @@ services:
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/user_service?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - kafka
+      - zookeeper  
 
   order-service:
     build: ./order-service
@@ -20,6 +23,12 @@ services:
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/order_service?retryWrites=true&w=majority&appName=Cluster0
+      - KAFKA_BROKER=kafka:9092
+    depends_on:
+      - kafka
+      - zookeeper
+      - user-service
+      - restaurant-service  
 
   restaurant-service:
     build: ./restaurant-service
@@ -30,6 +39,9 @@ services:
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/resturant_service?retryWrites=true&w=majority&appName=Cluster0
+    depends_on:
+      - kafka
+      - zookeeper
 
   delivery-service:
     build: ./delivery-service
@@ -40,6 +52,10 @@ services:
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/delivery_service?retryWrites=true&w=majority&appName=Cluster0
+      - KAFKA_BROKER=kafka:9092
+    depends_on:
+      - kafka
+      - zookeeper
 
   kafka:
     image: wurstmeister/kafka:latest
@@ -49,10 +65,14 @@ services:
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CREATE_TOPICS=order-ready:1:1
     ports:
       - "9092:9092"
     networks:
       - qtasty-network
+    depends_on:
+      - zookeeper
+  
 
   zookeeper:
     image: wurstmeister/zookeeper:latest
