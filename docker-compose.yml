@@ -25,10 +25,14 @@ services:
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/order_service?retryWrites=true&w=majority&appName=Cluster0
       - KAFKA_BROKER=kafka:9092
     depends_on:
-      - kafka
-      - zookeeper
-      - user-service
-      - restaurant-service  
+      kafka:
+        condition: service_healthy
+      zookeeper:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+      restaurant-service:
+        condition: service_started
 
   restaurant-service:
     build: ./restaurant-service
@@ -46,42 +50,91 @@ services:
   delivery-service:
     build: ./delivery-service
     ports:
-      - "9000:9000"
+      - "8000:8000"
     networks:
       - qtasty-network
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/delivery_service?retryWrites=true&w=majority&appName=Cluster0
       - KAFKA_BROKER=kafka:9092
+      - CLOUDINARY_CLOUD_NAME='dseiiqqtb'
+      - CLOUDINARY_API_KEY='388749787679651'
+      - CLOUDINARY_API_SECRET='jUegIrOT8SLO3yTD9htCobfQ91g'
+      - GOOGLE_MAPS_API_KEY= 'AIzaSyB0zc090Yi-GBjwOs7kG6iqVPR7XJPoDvo
     depends_on:
-      - kafka
-      - zookeeper
+      kafka:
+        condition: service_healthy
+      zookeeper:
+        condition: service_healthy
 
   kafka:
-    image: wurstmeister/kafka:latest
+    image: wurstmeister/kafka:2.13-2.8.1
     environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_CREATE_TOPICS=order-ready:1:1
+      - KAFKA_NUM_PARTITIONS=1
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=1
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS=60000
+      - KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS=60000
+      - KAFKA_LOG_RETENTION_HOURS=168
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=3000
+      - KAFKA_MAX_CONNECTIONS=100
+      - JAVA_OPTS=-Xmx1G -Xms512M
     ports:
       - "9092:9092"
+    volumes:
+      - kafka-data:/kafka  
     networks:
       - qtasty-network
     depends_on:
-      - zookeeper
+      zookeeper:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "kafka-topics.sh", "--bootstrap-server", "localhost:9092", "--list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    deploy:
+      resources:
+        limits:
+          memory: 1.5G
+        reservations:
+          memory: 768M   
   
 
   zookeeper:
     image: wurstmeister/zookeeper:latest
     environment:
       - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+      - ZOOKEEPER_MAX_CLIENT_CNXNS=60
+      - ZOOKEEPER_AUTOPURGE_SNAP_RETAIN_COUNT=3
+      - ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL=1
     ports:
       - "2181:2181"
+    volumes:
+      - zookeeper-data:/data
+      - zookeeper-datalog:/datalog  
     networks:
       - qtasty-network
+    healthcheck:
+      test: ["CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "&&", "echo", "imok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+  
 
   # admin-service:
   #   build: ./admin-service
@@ -110,6 +163,11 @@ services:
   #     - "8086:8086"
   #   networks:
   #     - qtasty-network
+
+volumes:
+  zookeeper-data:
+  zookeeper-datalog:
+  kafka-data:
 
 networks:
   qtasty-network:
