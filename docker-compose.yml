@@ -57,10 +57,10 @@ services:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/delivery_service?retryWrites=true&w=majority&appName=Cluster0
       - KAFKA_BROKER=kafka:9092
-      - CLOUDINARY_CLOUD_NAME='dseiiqqtb'
-      - CLOUDINARY_API_KEY='388749787679651'
-      - CLOUDINARY_API_SECRET='jUegIrOT8SLO3yTD9htCobfQ91g'
-      - GOOGLE_MAPS_API_KEY= 'AIzaSyB0zc090Yi-GBjwOs7kG6iqVPR7XJPoDvo
+      - CLOUDINARY_CLOUD_NAME=dseiiqqtb
+      - CLOUDINARY_API_KEY=693656724239737
+      - CLOUDINARY_API_SECRET=UR_3PQOECb-WIPLbTjdNfzOheiY
+      - GOOGLE_MAPS_API_KEY= AIzaSyB0zc090Yi-GBjwOs7kG6iqVPR7XJPoDvo
     depends_on:
       kafka:
         condition: service_healthy
