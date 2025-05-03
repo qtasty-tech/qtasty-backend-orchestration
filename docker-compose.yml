@@ -43,6 +43,9 @@ services:
     environment:
       - JWT_SECRET=thisal
       - MONGO_URL=mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/resturant_service?retryWrites=true&w=majority&appName=Cluster0
+      - CLOUDINARY_NAME=dseiiqqtb
+      - CLOUDINARY_API_KEY=693656724239737
+      - CLOUDINARY_SECRET_KEY=UR_3PQOECb-WIPLbTjdNfzOheiY
     depends_on:
       - kafka
       - zookeeper
