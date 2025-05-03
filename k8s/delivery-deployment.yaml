@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery-service
+  template:
+    metadata:
+      labels:
+        app: delivery-service
+    spec:
+      containers:
+        - name: delivery-service
+          image: delivery-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: JWT_SECRET
+              value: "thisal"
+            - name: MONGO_URL
+              value: "mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/delivery_service?retryWrites=true&w=majority&appName=Cluster0"
+            - name: KAFKA_BROKER
+              value: "kafka:9092"
+            - name: CLOUDINARY_CLOUD_NAME
+              value: "dseiiqqtb"
+            - name: CLOUDINARY_API_KEY
+              value: "693656724239737"
+            - name: CLOUDINARY_API_SECRET
+              value: "UR_3PQOECb-WIPLbTjdNfzOheiY"
+            - name: GOOGLE_MAPS_API_KEY
+              value: "AIzaSyB0zc090Yi-GBjwOs7kG6iqVPR7XJPoDvo"

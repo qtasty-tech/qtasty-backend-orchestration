@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+        - name: payment-service
+          image: payment-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: JWT_SECRET
+              value: "thisal"
+            - name: STRIPE_SECRET_KEY
+              value: "your_stripe_secret_key"
+            - name: MONGO_URL
+              value: "mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/payment_service?retryWrites=true&w=majority&appName=Cluster0"

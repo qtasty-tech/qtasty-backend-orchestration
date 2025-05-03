@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurant-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-service
+  template:
+    metadata:
+      labels:
+        app: restaurant-service
+    spec:
+      containers:
+        - name: restaurant-service
+          image: restaurant-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5001
+          env:
+            - name: JWT_SECRET
+              value: "thisal"
+            - name: MONGO_URL
+              value: "mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/resturant_service?retryWrites=true&w=majority&appName=Cluster0"

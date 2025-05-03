@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: user-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: JWT_SECRET
+              value: "thisal"
+            - name: MONGO_URL
+              value: "mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/user_service?retryWrites=true&w=majority&appName=Cluster0"

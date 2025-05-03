@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: order-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7000
+          env:
+            - name: JWT_SECRET
+              value: "thisal"
+            - name: MONGO_URL
+              value: "mongodb+srv://Thisal:Thisal@cluster0.fjuv6mx.mongodb.net/order_service?retryWrites=true&w=majority&appName=Cluster0"
+            - name: KAFKA_BROKER
+              value: "kafka:9092"
